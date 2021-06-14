@@ -8,7 +8,7 @@ function ForkIcon(props: React.SVGProps<SVGSVGElement>) {
       data-view-component="true"
       height={16}
       width={16}
-      className="prefix__octicon prefix__octicon-repo-forked"
+      className="octicon octicon-repo-forked"
       {...props}
     >
       <path

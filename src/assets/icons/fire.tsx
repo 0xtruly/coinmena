@@ -3,7 +3,7 @@ import * as React from 'react';
 function FireIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
-      className="prefix__octicon prefix__octicon-flame prefix__text-orange-light prefix__mr-1"
+      className="octicon octicon-flame text-orange-light mr-1"
       viewBox="0 0 16 16"
       width={16}
       height={16}

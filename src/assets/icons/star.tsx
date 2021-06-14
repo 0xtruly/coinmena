@@ -8,7 +8,7 @@ function StarIcon(props: React.SVGProps<SVGSVGElement>) {
       data-view-component="true"
       height={16}
       width={16}
-      className="prefix__octicon prefix__octicon-star"
+      className="octicon octicon-star"
       {...props}
     >
       <path
