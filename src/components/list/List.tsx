@@ -7,6 +7,8 @@ import { Icons } from '../../assets/icons';
 import Avatar from '../shared/Avatar';
 import Badge from '../shared/Badge';
 import { RepoType, DevType } from '../../types/List';
+import { dropdownItems } from '../../helper/constants';
+
 
 const renderRepositories = (repos: Array<RepoType>) => {
   return (
@@ -91,27 +93,18 @@ const renderRepositories = (repos: Array<RepoType>) => {
     </>
   );
 };
+
 const renderDevelopers = (devs: Array<DevType>) => {
   return (
     <>
-        {devs && devs.map(({
-            avatar,
-            name,
-            popularRepository,
-            rank,
-            url,
-            username
-        }) => (
-            <ListItem display="flex" width="95%">
-            <SerialNumber href={`https://github.com/trending/developers#pa-${username}`}>{rank}</SerialNumber>
+      {devs &&
+        devs.map(({ avatar, name, popularRepository, rank, url, username }) => (
+          <ListItem display="flex" width="95%">
+            <SerialNumber href={`https://github.com/trending/developers#pa-${username}`}>
+              {rank}
+            </SerialNumber>
             <AvatarContainer>
-              <Avatar
-                src={avatar}
-                alt="avatar"
-                url={url}
-                width="48px"
-                height="48px"
-              />
+              <Avatar src={avatar} alt="avatar" url={url} width="48px" height="48px" />
             </AvatarContainer>
             <ContentContainer>
               <MainContent>
@@ -148,22 +141,20 @@ const renderDevelopers = (devs: Array<DevType>) => {
                           link={popularRepository?.url}
                         />
                       </ListHeader>
-                      <div className="description">
-                          {popularRepository?.description}
-                      </div>
+                      <div className="description">{popularRepository?.description}</div>
                     </DevContent>
                   </div>
                 </div>
               </MainContent>
               <div className="buttons">
-                  <StyledButton
-                      withIcon={false}
-                      width="25px"
-                      height="12px"
-                      text="Follow"
-                      bordered
-                      color="#adbac7"
-                      />
+                <StyledButton
+                  withIcon={false}
+                  width="25px"
+                  height="12px"
+                  text="Follow"
+                  bordered
+                  color="#adbac7"
+                />
               </div>
             </ContentContainer>
           </ListItem>
@@ -209,16 +200,12 @@ const List = () => {
         return renderRepositories(repos);
     }
   };
-const dropdownItems = [
-    {title: 'Spoken Language', dropdownText: 'Any'},
-    {title: 'Language', dropdownText: 'Any'},
-    {title: 'Date range', dropdownText: 'Any'},
-]
+
   return (
     <Box>
       <BoxHeader>
         <Tab>
-          <a href="#/developers" onClick={toggleActiveTab} aria-current={isRepoSelected}>
+          <a href="#/repositories" onClick={toggleActiveTab} aria-current={isRepoSelected}>
             Repositories
           </a>
           <a href="#/developers" onClick={toggleActiveTab} aria-current={isDevSelected}>
@@ -226,16 +213,23 @@ const dropdownItems = [
           </a>
         </Tab>
         <DropdownContainer>
-            {dropdownItems.map(({title, dropdownText}) => (
-                <DropDown>
-                    <DropDownSummary>
-                        {title}:
-                        <span>
-                            {dropdownText}
-                        </span>
-                    </DropDownSummary>
-                </DropDown>
-            ))}
+          {activeTab ===  'repositories' ? (
+            dropdownItems.map(({ title, dropdownText }) => (
+              <DropDown>
+                <DropDownSummary>
+                  {title}:<span>{dropdownText}</span>
+                </DropDownSummary>
+              </DropDown>
+            ))
+          ) : (
+            dropdownItems.slice(1, 3).map(({ title, dropdownText }) => (
+              <DropDown>
+                <DropDownSummary>
+                  {title}:<span>{dropdownText}</span>
+                </DropDownSummary>
+              </DropDown>
+            ))
+          )} 
         </DropdownContainer>
       </BoxHeader>
       <div>{renderLists()}</div>
@@ -302,48 +296,50 @@ const Tab = styled.nav`
 `;
 
 const DropdownContainer = styled.div`
-    margin-top: 16px;
-    margin-left: -8px;
-    align-items: center;
-    @media (min-width: 544px) {
-        display: flex;
-    }
-    @media (min-width: 768px) {
-        margin-top: 0;
-        margin-left: 0;
-        justify-content: flex-end;
-    }
+  margin-top: 16px;
+  margin-left: -8px;
+  align-items: center;
+  @media (min-width: 544px) {
+    display: flex;
+  }
+  @media (min-width: 768px) {
+    margin-top: 0;
+    margin-left: 0;
+    justify-content: flex-end;
+  }
 `;
 
 const DropDown = styled.div`
-    margin-bottom: 16px;
-    position: relative;
-    @media (min-width: 544px) {
-        margin-bottom: 0;
-    }
+  margin-bottom: 16px;
+  position: relative;
+  @media (min-width: 544px) {
+    margin-bottom: 0;
+  }
 `;
 
 const DropDownSummary = styled.summary`
-    padding-left: 15px;
-    padding-right: 15px;
-    color: #768390;
-    list-style: none;
+  padding-left: 15px;
+  padding-right: 15px;
+  color: #768390;
+  list-style: none;
+  white-space: nowrap;
+  span {
+    color: inherit;
+    font-weight: 600;
+    margin-left: 2px;
     white-space: nowrap;
-    span {
-        color: inherit;
-        font-weight: 600;
-        margin-left: 1px;
-        white-space: nowrap;
-        &:after {
-            display: inline-block;
-            width: 0;
-            height: 0;
-            vertical-align: -2px;
-            content: "";
-            border: 4px solid transparent;
-            border-top-color: currentcolor;
-        }
+    &:after {
+      display: inline-block;
+      width: 0;
+      height: 0;
+      vertical-align: -2px;
+      content: '';
+      border: 4px solid transparent;
+      border-top-color: currentcolor;
+      cursor: pointer;
+      margin-left: 1px;
     }
+  }
 `;
 
 const ListHeader = styled.h1`
@@ -424,16 +420,16 @@ const ContentContainer = styled.div`
     display: flex;
   }
   .buttons {
-        display: block;
-        @media (min-width: 544px) {
-            justify-content: flex-end;
-            margin-left: 16px;
-            width: 33.33333%;
-        }
-        @media (max-width: 544px) {
-            float: left;
-        }
+    display: block;
+    @media (min-width: 544px) {
+      justify-content: flex-end;
+      margin-left: 16px;
+      width: 33.33333%;
     }
+    @media (max-width: 544px) {
+      float: left;
+    }
+  }
 `;
 
 const MainContent = styled.div`
@@ -466,8 +462,8 @@ const DevContent = styled.article`
     }
   }
   .description {
-      font-size: 12px;
-      margin-top: 4px;
-      color: #768390;
+    font-size: 12px;
+    margin-top: 4px;
+    color: #768390;
   }
 `;

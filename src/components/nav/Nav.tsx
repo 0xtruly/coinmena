@@ -1,25 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import OctIcon from '../../assets/icons/octicon';
+import { navItems } from '../../helper/constants';
 
-const navItems = [
-    {
-        id: 'item1',
-        value: 'Pull'
-    },
-    {
-        id: 'item2',
-        value: 'Issues'
-    },
-    {
-        id: 'item3',
-        value: 'Marketplace'
-    },
-    {
-        id: 'item4',
-        value: 'Explore'
-    },
-]
 const HeaderNav = () => {
   return (
     <Container>
@@ -35,25 +18,27 @@ const HeaderNav = () => {
               <form action="" className="search-form">
                 <label htmlFor="search" className="form-control header-search-wrapper input-sm">
                   <input type="text" className="form-control header-search-input" />
-                  <img src="https://github.githubassets.com/images/search-key-slash.svg" alt="" />
+                  <img
+                    src="https://github.githubassets.com/images/search-key-slash.svg"
+                    alt="slash"
+                  />
                 </label>
               </form>
             </div>
           </InputFieldContainer>
           <Nav>
-            {navItems.map(({id, value}) => (
-                value.toLowerCase() === 'pull' ? (
-                    <a key={id} href={`#${value}`} className="nav-item">
-                        {value}
-                        <span className="nav-item-extra">
-                            Request
-                        </span>
-                        s
-                    </a>
-                ) : (
-                    <a key={id} href={`#${value}`} className="nav-item">{value}</a>
-                )
-            ))}
+            {navItems.map(({ id, value }) =>
+              value.toLowerCase() === 'pull' ? (
+                <a key={id} href={`#${value}`} className="nav-item">
+                  {value}
+                  <span className="nav-item-extra">Request</span>s
+                </a>
+              ) : (
+                <a key={id} href={`#${value}`} className="nav-item">
+                  {value}
+                </a>
+              ),
+            )}
           </Nav>
         </NavContainer>
       </Header>
@@ -148,7 +133,7 @@ const InputFieldContainer = styled.div`
           box-shadow: none;
         }
         img {
-            margin-right: 8px;
+          margin-right: 8px;
         }
       }
       .input-sm {
@@ -166,38 +151,38 @@ const InputFieldContainer = styled.div`
 `;
 
 const Nav = styled.nav`
-    display: flex;
-    flex-direction: column;
-    align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  @media (min-width: 768px) {
+    align-self: auto;
+    flex-direction: row;
+  }
+  .nav-item {
+    font-weight: 600;
+    color: #cdd9e5;
+    white-space: nowrap;
+    border-color: #ffffff26;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin-right: 0;
+    border-top: 1px solid #444c56;
     @media (min-width: 768px) {
-        align-self: auto;
-        flex-direction: row;
+      padding-top: 16px;
+      padding-bottom: 16px;
+      margin-bottom: -16px;
+      margin-top: -16px;
+      margin-right: 16px;
+      border-top: 0;
     }
-    .nav-item {
-        font-weight: 600;
-        color: #cdd9e5;
-        white-space: nowrap;
-        border-color: #ffffff26;
-        padding-top: 8px;
-        padding-bottom: 8px;
-        margin-right: 0;
-        border-top: 1px solid #444c56;
-        @media (min-width: 768px) {
-            padding-top: 16px;
-            padding-bottom: 16px;
-            margin-bottom: -16px;
-            margin-top: -16px;
-            margin-right: 16px;
-            border-top: 0;
-        }
-        span {
-            margin-left: 5px;
-            @media (min-width: 768px) {
-                display: none;
-            }
-            @media (min-width: 1012px) {
-                display: inline;
-            }
-        }
+    span {
+      margin-left: 5px;
+      @media (min-width: 768px) {
+        display: none;
+      }
+      @media (min-width: 1012px) {
+        display: inline;
+      }
     }
+  }
 `;
