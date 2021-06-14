@@ -137,6 +137,7 @@ const renderDevelopers = (devs: Array<DevType>) => {
                             whiteSpace: 'nowrap',
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
+                            maxWidth: '175px',
                           }}
                           link={popularRepository?.url}
                         />
@@ -215,7 +216,7 @@ const List = () => {
         <DropdownContainer>
           {activeTab ===  'repositories' ? (
             dropdownItems.map(({ title, dropdownText }) => (
-              <DropDown>
+              <DropDown key={title}>
                 <DropDownSummary>
                   {title}:<span>{dropdownText}</span>
                 </DropDownSummary>
@@ -223,7 +224,7 @@ const List = () => {
             ))
           ) : (
             dropdownItems.slice(1, 3).map(({ title, dropdownText }) => (
-              <DropDown>
+              <DropDown key={title}>
                 <DropDownSummary>
                   {title}:<span>{dropdownText}</span>
                 </DropDownSummary>
